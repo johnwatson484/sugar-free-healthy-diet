@@ -1,21 +1,16 @@
-using System;
 using System.Text.RegularExpressions;
 
-namespace SugarFreeHealthyDiet.Utilities
+namespace SugarFreeHealthyDiet.Common
 {
-    public static class StringUtilities
+    public class Slug
     {
-        public static string Pluralize(int count, string text)
+        protected string phrase;
+        public Slug(string phrase)
         {
-            return count == 1 ? text : string.Format("{0}s", text);
+            this.phrase = phrase;
         }
 
-        public static string RemoveAccent(string text)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
-            return System.Text.Encoding.ASCII.GetString(bytes);
-        }
-        public static string GenerateSlug(string phrase)
+        public virtual string Generate()
         {
             string str = RemoveAccent(phrase).ToLower();
             // invalid chars           
@@ -26,6 +21,12 @@ namespace SugarFreeHealthyDiet.Utilities
             str = str.Substring(0, str.Length <= 45 ? str.Length : 45).Trim();
             str = Regex.Replace(str, @"\s", "-"); // hyphens   
             return str;
+        }
+
+        private string RemoveAccent(string text)
+        {
+            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
+            return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }
 }

@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.RegularExpressions;
-using SugarFreeHealthyDiet.Utilities;
+using SugarFreeHealthyDiet.Extensions;
+using SugarFreeHealthyDiet.Common;
 
 namespace SugarFreeHealthyDiet.Models
 {
@@ -66,12 +67,12 @@ namespace SugarFreeHealthyDiet.Models
 
             if (Hours >= 1)
             {
-                sb.Append(string.Format("{0} {1}", Hours, StringUtilities.Pluralize(Hours, "hour")));
+                sb.Append(string.Format("{0} {1}", Hours, Hours.ToPluralizableString("hour")));
             }
 
             if (Minutes >= 1)
             {
-                sb.Append(string.Format("{0} {1}", Minutes, StringUtilities.Pluralize(Minutes, "minute")));
+                sb.Append(string.Format("{0} {1}", Minutes, Minutes.ToPluralizableString("minute")));
             }
 
             return sb.ToString();
@@ -79,7 +80,7 @@ namespace SugarFreeHealthyDiet.Models
 
         public string GetSlug()
         {
-            return StringUtilities.GenerateSlug(string.Format("{0}-{1}", RecipeId, Title));
+            return new Slug(string.Format("{0}-{1}", RecipeId, Title)).Generate();
         }
 
         public void SetCreated(string userId)
