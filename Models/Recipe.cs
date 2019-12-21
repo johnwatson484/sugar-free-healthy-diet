@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.RegularExpressions;
+using SugarFreeHealthyDiet.Utilities;
 
 namespace SugarFreeHealthyDiet.Models
 {
@@ -59,67 +60,32 @@ namespace SugarFreeHealthyDiet.Models
 
         public bool Active { get; set; }
 
-        public string Duration
+        public string GetDuration()
         {
-            get
+            StringBuilder sb = new StringBuilder();
+
+            if (Hours >= 1)
             {
-                StringBuilder sb = new StringBuilder();
-
-                if (Hours >= 1)
-                {
-                    sb.Append(string.Format("{0} ", Hours));
-                    if (Hours == 1)
-                    {
-                        sb.Append("hour ");
-                    }
-                    else
-                    {
-                        sb.Append("hours ");
-                    }
-                }
-
-                if (Minutes >= 1)
-                {
-                    sb.Append(string.Format("{0} ", Minutes));
-                    if (Minutes == 1)
-                    {
-                        sb.Append("minute");
-                    }
-                    else
-                    {
-                        sb.Append("minutes");
-                    }
-                }
-
-                return sb.ToString();
+                sb.Append(string.Format("{0} {1}", Hours, StringUtilities.Pluralize(Hours, "hour")));
             }
+
+            if (Minutes >= 1)
+            {
+                sb.Append(string.Format("{0} {1}", Minutes, StringUtilities.Pluralize(Minutes, "minute")));
+            }
+
+            return sb.ToString();
+        }
+
+        public string GetSlug()
+        {
+            return StringUtilities.GenerateSlug(string.Format("{0}-{1}", RecipeId, Title));
         }
 
         public void SetCreated(string userId)
         {
             UserId = userId;
             Created = DateTime.Now;
-        }
-
-        public string GenerateSlug()
-        {
-            string phrase = string.Format("{0}-{1}", RecipeId, Title);
-
-            string str = RemoveAccent(phrase).ToLower();
-            // invalid chars           
-            str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
-            // convert multiple spaces into one space   
-            str = Regex.Replace(str, @"\s+", " ").Trim();
-            // cut and trim 
-            str = str.Substring(0, str.Length <= 45 ? str.Length : 45).Trim();
-            str = Regex.Replace(str, @"\s", "-"); // hyphens   
-            return str;
-        }
-
-        private string RemoveAccent(string text)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
-            return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }
 }
