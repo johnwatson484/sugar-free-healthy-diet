@@ -6,3 +6,5 @@ services:
     container_name: sugar-free-healthy-diet
     ports:
       - "8000:80"
+    environment:
+      ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
