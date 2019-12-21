@@ -15,7 +15,8 @@ namespace SugarFreeHealthyDiet.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [Route("Contact")]
+        public IActionResult Contact()
         {
             return View();
         }
