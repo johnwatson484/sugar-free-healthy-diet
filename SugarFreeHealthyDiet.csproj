@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-SugarFreeHealthyDiet-3522A285-4161-4FBB-BA7A-3AD38F900EC5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
