@@ -15,7 +15,7 @@ namespace SugarFreeHealthyDiet.Utilities
             byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
             return System.Text.Encoding.ASCII.GetString(bytes);
         }
-		public static string GenerateSlug(string phrase)
+        public static string GenerateSlug(string phrase)
         {
             string str = RemoveAccent(phrase).ToLower();
             // invalid chars           
