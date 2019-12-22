@@ -1,7 +1,9 @@
 version: '3.7'
 services:
   sugar-free-healthy-diet:
-    build: .
+    build:
+      context: .
+      target: production-env
     image: sugar-free-healthy-diet
     container_name: sugar-free-healthy-diet
     ports:

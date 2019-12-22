@@ -3,7 +3,7 @@ services:
   sugar-free-healthy-diet:
     build: 
       context: .
-      dockerfile: Dockerfile-development
+      target: development-env
     depends_on: 
       - sugar-free-healthy-diet-postgres
     ports:

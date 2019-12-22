@@ -1,17 +1,23 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+# BASE
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR /app
-
-# Copy csproj and restore as distinct layers
 COPY *.csproj ./
 RUN dotnet restore
-
-# Copy everything else and build
 COPY . ./
+
+# DEVELOPMENT
+FROM base AS development-env
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends unzip \
+ && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+ENTRYPOINT [ "dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000" ]
+
+#PRODUCTION
+FROM base AS build-env
 RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+# RUNTIME
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS production-env
 WORKDIR /app
 COPY --from=build-env /app/out .
-
 ENTRYPOINT ["dotnet", "SugarFreeHealthyDiet.dll"]
