@@ -23,4 +23,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS production-env
 WORKDIR /app
 COPY --from=build-env /app/out .
+RUN chown -R www-data:www-data /app
+USER www-data
 ENTRYPOINT ["dotnet", "SugarFreeHealthyDiet.dll"]
