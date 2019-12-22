@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System.IO;
 
 namespace SugarFreeHealthyDiet.Common
@@ -48,7 +49,12 @@ namespace SugarFreeHealthyDiet.Common
                 }
 
                 thumbnail.Mutate(x => x.Resize(imgWidth, imgWidth));
-                return thumbnail;
+
+                using (var ms = new MemoryStream())
+                {
+                    thumbnail.SaveAsJpeg(ms);
+                    return ms.ToArray();
+                }
             }
         }
 
