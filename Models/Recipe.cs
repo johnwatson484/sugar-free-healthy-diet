@@ -67,12 +67,12 @@ namespace SugarFreeHealthyDiet.Models
 
             if (Hours >= 1)
             {
-                sb.Append(string.Format("{0} {1}", Hours, Hours.ToPluralizableString("hour")));
+                sb.Append(Hours.ToPluralizableString("hour"));
             }
 
             if (Minutes >= 1)
             {
-                sb.Append(string.Format("{0} {1}", Minutes, Minutes.ToPluralizableString("minute")));
+                sb.Append(Minutes.ToPluralizableString("minute"));
             }
 
             return sb.ToString();

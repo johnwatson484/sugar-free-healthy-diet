@@ -6,7 +6,7 @@ namespace SugarFreeHealthyDiet.Extensions
     {
         public static string ToPluralizableString(this int value, string singular)
         {
-            return value == 1 ? singular : string.Format("{0}s", singular);
+            return value == 1 ? string.Format("{0}, {1}", value, singular) : string.Format("{0} {1}s", value, singular);
         }
     }
 }
