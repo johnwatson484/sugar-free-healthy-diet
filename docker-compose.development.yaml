@@ -7,8 +7,8 @@ services:
     depends_on: 
       - sugar-free-healthy-diet-postgres
     ports:
-      - "8000:5000"
-      - "8001:5001"
+      - "5000:5000"
+      - "5001:5001"
     environment:
       ConnectionStrings__DefaultConnection: "Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;User Id=postgres;Password=postgres;"
     volumes:
