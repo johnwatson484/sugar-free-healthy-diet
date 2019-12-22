@@ -30,32 +30,39 @@ namespace SugarFreeHealthyDiet.Common
         {
             EnsureImageExists();
 
-            int imgHeight = 200;
-            int imgWidth = 300;
-
             using (SixLabors.ImageSharp.Image thumbnail = SixLabors.ImageSharp.Image.Load(image))
             {
-                if (thumbnail.Width < thumbnail.Height)
-                {
-                    //portrait image                  
-                    var imgRatio = (float)imgHeight / (float)thumbnail.Height;
-                    imgWidth = Convert.ToInt32(thumbnail.Height * imgRatio);
-                }
-                else if (thumbnail.Height < thumbnail.Width)
-                {
-                    //landscape image
-                    var imgRatio = (float)imgWidth / (float)thumbnail.Width;
-                    imgHeight = Convert.ToInt32(thumbnail.Height * imgRatio);
-                }
-
-                thumbnail.Mutate(x => x.Resize(imgWidth, imgWidth));
+                var resizedImage = ResizeImage(thumbnail);
 
                 using (var ms = new MemoryStream())
                 {
-                    thumbnail.SaveAsJpeg(ms);
+                    resizedImage.SaveAsJpeg(ms);
                     return ms.ToArray();
                 }
             }
+        }
+
+        private SixLabors.ImageSharp.Image ResizeImage(SixLabors.ImageSharp.Image image)
+        {
+            int imgHeight = 200;
+            int imgWidth = 300;
+
+            if (image.Width < image.Height)
+            {
+                //portrait image                  
+                var imgRatio = (float)imgHeight / (float)image.Height;
+                imgWidth = Convert.ToInt32(image.Height * imgRatio);
+            }
+            else if (image.Height < image.Width)
+            {
+                //landscape image
+                var imgRatio = (float)imgWidth / (float)image.Width;
+                imgHeight = Convert.ToInt32(image.Height * imgRatio);
+            }
+
+            image.Mutate(x => x.Resize(imgWidth, imgWidth));
+
+            return image;
         }
 
         private void EnsureImageExists()
