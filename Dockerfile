@@ -21,7 +21,7 @@ RUN dotnet restore
 COPY ./SugarFreeHealthyDiet.Tests ./
 ENTRYPOINT [ "dotnet", "watch", "test" ]
 
-#PRODUCTION
+# PRODUCTION
 FROM base AS build-env
 COPY ./SugarFreeHealthyDiet/*.csproj ./
 RUN dotnet restore
