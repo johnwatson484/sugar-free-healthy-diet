@@ -1,0 +1,4 @@
+version: '3.7'
+services:
+  sugar-free-healthy-diet-test:
+    entrypoint: [ "dotnet", "test" ]

@@ -14,6 +14,6 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        docker-compose -f docker-compose.test.yaml build
-        docker-compose -f docker-compose.test.yaml up
+        docker-compose -f docker-compose.test.yaml -f docker-compose.test.pipeline.yaml build
+        docker-compose -f docker-compose.test.yaml -f docker-compose.test.pipeline.yaml up
       failOnStderr: true
