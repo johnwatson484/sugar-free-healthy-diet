@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  sugar-free-healthy-diet-test:
+    build: 
+      context: .
+      target: test-env
+    image: sugar-free-healthy-diet-test
+    container_name: sugar-free-healthy-diet-test
+    volumes:
+      - ./SugarFreeHealthyDiet.Tests:/tests

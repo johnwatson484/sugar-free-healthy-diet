@@ -4,6 +4,7 @@ WORKDIR /app
 
 # DEVELOPMENT
 FROM base AS development-env
+WORKDIR /SugarFreeHealthyDiet
 RUN apt-get update \
  && apt-get install -y --no-install-recommends unzip \
  && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
@@ -11,6 +12,14 @@ COPY ./SugarFreeHealthyDiet/*.csproj ./
 RUN dotnet restore
 COPY ./SugarFreeHealthyDiet ./
 ENTRYPOINT [ "dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000" ]
+
+# TEST
+FROM development-env AS test-env
+WORKDIR /SugarFreeHealthyDiet.Tests
+COPY ./SugarFreeHealthyDiet.Tests/*.csproj ./
+RUN dotnet restore
+COPY ./SugarFreeHealthyDiet.Tests ./
+ENTRYPOINT [ "dotnet", "watch", "test" ]
 
 #PRODUCTION
 FROM base AS build-env
