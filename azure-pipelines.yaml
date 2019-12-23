@@ -10,6 +10,25 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+  - task: SonarQubePrepare@4
+    inputs:
+      SonarQube: 'SonarQube'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: 'sugar-free-healthy-diet'
+      cliProjectName: 'sugar-free-healthy-diet'
+      cliSources: '.'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: SonarQubeAnalyze@4
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - task: SonarQubePublish@4
+    inputs:
+      pollingTimeoutSec: '300'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))    
+
   - task: Bash@3
     inputs:
       targetType: 'inline'
