@@ -16,4 +16,3 @@ steps:
       script: |
         docker-compose -f docker-compose.test.yaml -f docker-compose.test.pipeline.yaml build
         docker-compose -f docker-compose.test.yaml -f docker-compose.test.pipeline.yaml up
-      failOnStderr: true
