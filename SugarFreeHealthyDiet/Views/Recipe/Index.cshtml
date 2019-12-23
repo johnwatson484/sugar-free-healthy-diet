@@ -1,0 +1,85 @@
+@model IPagedList<SugarFreeHealthyDiet.Models.Recipe>
+
+@{
+  	ViewData["Title"] = "Recipes";
+}
+
+@using SugarFreeHealthyDiet.Extensions
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+<h2 class="no-mobile">Welcome to SugarFreeHealthyDiet.com!</h2>
+
+<p>We created this website because we wanted to adopt a diet which involved less processed food and more importantly less sugar.  
+    However, we struggled to find a suitable website or cook book that centered around a sugar free diet.  
+    So we thought it would be a good idea to start our own to help out like minded people.</p>
+
+<p>By sugar free, we're referring specifically to added sugar, as opposed to natural occuring sugars found in fruits and vegetables.  
+    The recipies on this site are all free of added sugar and we hope they help you on your sugar free journey or quest to a healthier lifestyle.</p>
+
+<p>We're also not big meat eaters so the majority of meals on this site are also perfect for a whole foods plant based diet as well as vegans and vegetarians.</p>
+
+<p>We're constantly trying out and adding new recipes so check back regularly for fresh ideas!</p>
+
+<h2>Our Recipes</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add new recipe", "Create")
+    </p>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>Check back soon for upcoming recipes</p>
+}
+else
+{
+    int i = 0;
+
+    <div class="row">
+        @foreach (var recipe in Model)
+        {
+            if (i++ % 3 == 0)
+            {
+            	@:</div><div class="row">
+            }
+
+            <div class="col-4">
+                <div class="crop col-12">
+                    @if (recipe.Thumbnail != null)
+                    {
+                        <img class="recipe-image" src="data:image;base64,@System.Convert.ToBase64String(recipe.Thumbnail)" />
+                    }
+                    else
+                    {
+                        <img class="recipe-image" src="~/Content/Images/Placeholder.jpg" />
+                    }
+                </div>
+                <div class="col-12">
+                    <h4>@Html.ActionLink(recipe.Title, "Details", new { id = recipe.GetSlug() })</h4>
+                    @if(User.IsInRole("Admin"))
+                    {
+                    	<p><span class="glyphicon @(recipe.Active ? "glyphicon-ok-sign" : "glyphicon-minus-sign")" style="color:@(recipe.Active ? "#258039" : "#a32b1a")"></span> @(recipe.Active ? "Active" : "Inactive")</p>
+                    }
+                    <p>@Html.PreserveNewLine(recipe.ShortDescription)</p>
+                    @if (recipe.Vegetarian)
+                    {
+                        <p><span class="glyphicon glyphicon-leaf"></span> @Html.DisplayNameFor(model => recipe.Vegetarian)</p>
+                    }
+                    @if (recipe.Vegan)
+                    {
+                        <p><span class="glyphicon glyphicon-grain"></span> @Html.DisplayNameFor(model => recipe.Vegan)</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    if (Model.PageCount > 1)
+    {
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+        @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    }
+}
