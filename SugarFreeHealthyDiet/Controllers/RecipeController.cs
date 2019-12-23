@@ -25,7 +25,14 @@ namespace SugarFreeHealthyDiet.Controllers
 
         public IActionResult Index(int page = 1, int pageSize = 12)
         {
-            return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
+            if (User.IsInRole("Admin"))
+            {
+                return View(dbContext.Recipes.OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
+            }
+            else
+            {
+                return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
+            }            
         }
     }
 }
