@@ -9,12 +9,11 @@ steps:
   - task: SonarQubePrepare@4
     inputs:
       SonarQube: 'SonarQube'
-      scannerMode: 'CLI'
-      configMode: 'manual'
-      cliProjectKey: 'sugar-free-healthy-diet'
-      cliProjectName: 'sugar-free-healthy-diet'
-      cliSources: '.'
+      scannerMode: 'MSBuild'
+      projectKey: 'sugar-free-healthy-diet'
+      projectName: 'sugar-free-healthy-diet'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  
   - task: UseDotNet@2
     inputs:
       packageType: 'sdk'
