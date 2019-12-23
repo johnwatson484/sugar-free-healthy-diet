@@ -23,7 +23,7 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
       command: 'build'
-      projects: '**/*.csproj'
+      projects: '**/*.sln'
 
   - task: SonarQubeAnalyze@4
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
