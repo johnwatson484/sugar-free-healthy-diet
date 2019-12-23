@@ -12,7 +12,7 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;User Id=postgres;Password=postgres;"
     volumes:
-      - .:/app
+      - ./SugarFreeHealthyDiet:/app
     
 
   sugar-free-healthy-diet-postgres:

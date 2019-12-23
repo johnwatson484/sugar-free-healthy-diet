@@ -7,16 +7,16 @@ FROM base AS development-env
 RUN apt-get update \
  && apt-get install -y --no-install-recommends unzip \
  && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
-COPY *.csproj ./
+COPY ./SugarFreeHealthyDiet/*.csproj ./
 RUN dotnet restore
-COPY . ./
+COPY ./SugarFreeHealthyDiet ./
 ENTRYPOINT [ "dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000" ]
 
 #PRODUCTION
 FROM base AS build-env
-COPY *.csproj ./
+COPY ./SugarFreeHealthyDiet/*.csproj ./
 RUN dotnet restore
-COPY . ./
+COPY ./SugarFreeHealthyDiet ./
 RUN dotnet publish -c Release -o out
 
 # RUNTIME
