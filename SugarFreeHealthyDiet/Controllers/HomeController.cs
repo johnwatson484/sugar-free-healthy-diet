@@ -16,7 +16,7 @@ namespace SugarFreeHealthyDiet.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Recipe");
+            return RedirectToAction("Index", "Recipes");
         }
 
         [Route("Contact")]

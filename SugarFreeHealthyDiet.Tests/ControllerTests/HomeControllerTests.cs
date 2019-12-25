@@ -23,7 +23,7 @@ namespace SugarFreeHealthyDiet.Tests
         {
             var result = controller.Index() as RedirectToActionResult;
             Assert.AreEqual("Index", result.ActionName);
-            Assert.AreEqual("Recipe", result.ControllerName);
+            Assert.AreEqual("Recipes", result.ControllerName);
         }
     }
 }

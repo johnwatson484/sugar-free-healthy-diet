@@ -1,4 +1,18 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).on('change', ':file', function () {
+  var input = $(this)
+  var numFiles = input.get(0).files ? input.get(0).files.length : 1
+  var label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
+  input.trigger('fileselect', [numFiles, label])
+})
 
-// Write your JavaScript code.
+$(document).ready(function () {
+  $(':file').on('fileselect', function (event, numFiles, label) {
+    var input = $(this).parents('.input-group').find(':text')
+    var log = numFiles > 1 ? numFiles + ' files selected' : label
+    if (input.length) {
+      input.val(log)
+    } else {
+      if (log) alert(log)
+    }
+  })
+})
