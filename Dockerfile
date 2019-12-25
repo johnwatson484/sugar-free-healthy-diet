@@ -19,7 +19,7 @@ WORKDIR /SugarFreeHealthyDiet.Tests
 COPY ./SugarFreeHealthyDiet.Tests/*.csproj ./
 RUN dotnet restore
 COPY ./SugarFreeHealthyDiet.Tests ./
-ENTRYPOINT [ "dotnet", "watch", "test" ]
+ENTRYPOINT [ "dotnet", "test" ]
 
 # PRODUCTION
 FROM base AS build-env

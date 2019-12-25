@@ -6,6 +6,4 @@ services:
       target: test-env
     image: sugar-free-healthy-diet-test
     container_name: sugar-free-healthy-diet-test
-    volumes:
-      - ./SugarFreeHealthyDiet.Tests:/SugarFreeHealthyDiet.Tests
-      - ./SugarFreeHealthyDiet:/SugarFreeHealthyDiet
+    

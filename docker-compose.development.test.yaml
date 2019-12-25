@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  sugar-free-healthy-diet-test:
+    entrypoint: [ "dotnet", "watch", "test" ]
+    volumes:
+      - ./SugarFreeHealthyDiet.Tests:/SugarFreeHealthyDiet.Tests
+      - ./SugarFreeHealthyDiet:/SugarFreeHealthyDiet
