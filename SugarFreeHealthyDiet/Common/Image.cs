@@ -60,7 +60,7 @@ namespace SugarFreeHealthyDiet.Common
                 imgHeight = Convert.ToInt32(image.Height * imgRatio);
             }
 
-            image.Mutate(x => x.Resize(imgWidth, imgWidth));
+            image.Mutate(x => x.Resize(imgWidth, imgHeight));
 
             return image;
         }
