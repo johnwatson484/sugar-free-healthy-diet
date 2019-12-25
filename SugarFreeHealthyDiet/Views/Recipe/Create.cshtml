@@ -1,4 +1,4 @@
-@model SugarFreeDiet.Models.Recipe
+@model SugarFreeHealthyDiet.Models.Recipe
 
 @{
     ViewBag.Title = "New Recipe";
@@ -70,7 +70,7 @@
 
     <div class="form-group">
         <div class="col-10">
-            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label" })
+            @Html.Label("Duration", htmlAttributes: new { @class = "control-label" })
         </div>
         <div class="form-inline col-10">
             @Html.TextBoxFor(model => model.Hours, new { @class = "form-control input-number", @Value = "0" }) hours
