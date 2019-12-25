@@ -1,4 +1,14 @@
-﻿body {
+﻿html {
+  position: relative;
+  min-height: 100%;
+  font-size: 14px;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+body {
   font-family: 'Nunito', sans-serif;
 }
 
@@ -34,9 +44,7 @@ a {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
-}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -61,15 +69,6 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
 .footer {
   position: absolute;
   bottom: 0;
