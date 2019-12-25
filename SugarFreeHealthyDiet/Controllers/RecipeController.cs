@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SugarFreeHealthyDiet.Models;
 using SugarFreeHealthyDiet.Data;
-using X.PagedList.Mvc.Core;
 using X.PagedList;
 
 namespace SugarFreeHealthyDiet.Controllers
