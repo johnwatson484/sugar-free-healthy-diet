@@ -50,11 +50,11 @@ else
                 <div class="crop col-12">
                     @if (recipe.Thumbnail != null)
                     {
-                        <img class="recipe-image" src="data:image;base64,@System.Convert.ToBase64String(recipe.Thumbnail)" />
+                        <img class="recipe-image" alt="@recipe.Title" src="data:image;base64,@System.Convert.ToBase64String(recipe.Thumbnail)" />
                     }
                     else
                     {
-                        <img class="recipe-image" src="~/Content/Images/Placeholder.jpg" />
+                        <img class="recipe-image" alt="@recipe.Title" src="~/Content/Images/Placeholder.jpg" />
                     }
                 </div>
                 <div class="col-12">
