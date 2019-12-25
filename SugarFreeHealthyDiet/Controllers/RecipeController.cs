@@ -29,10 +29,7 @@ namespace SugarFreeHealthyDiet.Controllers
             {
                 return View(dbContext.Recipes.OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
             }
-            else
-            {
-                return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
-            }            
+            return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
         }
     }
 }
