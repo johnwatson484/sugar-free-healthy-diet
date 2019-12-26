@@ -11,8 +11,6 @@ $(document).ready(function () {
     var log = numFiles > 1 ? numFiles + ' files selected' : label
     if (input.length) {
       input.val(log)
-    } else {
-      if (log) alert(log)
-    }
+    } 
   })
 })
