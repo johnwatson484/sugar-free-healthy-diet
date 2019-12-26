@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace SugarFreeHealthyDiet.Common
 {
@@ -25,7 +26,7 @@ namespace SugarFreeHealthyDiet.Common
 
         private string RemoveAccent(string text)
         {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
+            byte[] bytes = CodePagesEncodingProvider.Instance.GetEncoding("Cyrillic").GetBytes(text);
             return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }

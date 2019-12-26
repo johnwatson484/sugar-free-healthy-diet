@@ -219,8 +219,8 @@ namespace SugarFreeHealthyDiet.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
-                columns: new[] { "Name", "NormalizedName" },
-                values: new object[] { "Admin", "ADMIN" });
+                columns: new[] { "Id", "Name", "NormalizedName" },
+                values: new object[] { "1", "Admin", "ADMIN" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

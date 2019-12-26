@@ -10,19 +10,22 @@ using Microsoft.AspNetCore.Http;
 using SugarFreeHealthyDiet.Data;
 using SugarFreeHealthyDiet.Models;
 using SugarFreeHealthyDiet.Common;
+using SugarFreeHealthyDiet.Services;
 using X.PagedList;
 
 namespace SugarFreeHealthyDiet.Controllers
 {
-    public class RecipeController : Controller
+    public class RecipesController : Controller
     {
         private readonly ILogger<HomeController> logger;
         private readonly ApplicationDbContext dbContext;
+        private readonly ISlugService slugService;
 
-        public RecipeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
+        public RecipesController(ILogger<HomeController> logger, ApplicationDbContext dbContext, ISlugService slugService)
         {
             this.logger = logger;
             this.dbContext = dbContext;
+            this.slugService = slugService;
         }
 
         public IActionResult Index(int page = 1, int pageSize = 12)
@@ -34,9 +37,17 @@ namespace SugarFreeHealthyDiet.Controllers
             return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
         }
 
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> Details(int? id)
         {
             return await GetRecipe(id);
+        }
+
+        [HttpGet("{id:alpha}")]
+        public IActionResult Details(string slug)
+        {
+            var id = slugService.GetIdFromSlug(slug);
+            return RedirectToAction("Details", new { id = id });
         }
 
         [Authorize(Roles = "Admin")]
