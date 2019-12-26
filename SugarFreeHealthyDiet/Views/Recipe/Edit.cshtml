@@ -1,18 +1,23 @@
 @model SugarFreeHealthyDiet.Models.Recipe
 
 @{
-    ViewData["Title"] = "New Recipe";
+    ViewBag.Title = "Edit Recipe";
 }
 
-<h2>New Recipe</h2>
+<h2>Edit Recipe</h2>
 
 
-@using (Html.BeginForm("Create", "Recipes", FormMethod.Post, new { encType = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Recipes", FormMethod.Post, new { encType = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RecipeId)
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.Created)
+    @Html.HiddenFor(model => model.Image)
+    @Html.HiddenFor(model => model.Thumbnail)
 
     <div class="form-group">
         <div class="col-10">
@@ -64,7 +69,7 @@
             @Html.LabelFor(model => model.Servings, htmlAttributes: new { @class = "control-label" })
         </div>
         <div class="col-10">
-            @Html.TextBoxFor(model => model.Servings, new { @class = "form-control input-number", @Value = "2" })
+            @Html.TextBoxFor(model => model.Servings, new { @class = "form-control input-number" })
         </div>
     </div>
 
@@ -73,8 +78,8 @@
             @Html.Label("Duration")
         </div>
         <div class="form-inline col-10">
-            @Html.TextBoxFor(model => model.Hours, new { @class = "form-control input-number", @Value = "0" }) hours
-            @Html.TextBoxFor(model => model.Minutes, new { @class = "form-control input-number", @Value = "0" }) minutes
+            @Html.TextBoxFor(model => model.Hours, new { @class = "form-control input-number" }) hours
+            @Html.TextBoxFor(model => model.Minutes, new { @class = "form-control input-number" }) minutes
         </div>
     </div>
 
@@ -102,7 +107,7 @@
         <div class="col-10">
             <div class="checkbox">
                 <label>
-                    @Html.CheckBoxFor(model => model.Active, new { @checked = "checked" }) @Html.DisplayNameFor(model => model.Active)
+                    @Html.CheckBoxFor(model => model.Active) @Html.DisplayNameFor(model => model.Active)
                 </label>
             </div>
         </div>
@@ -118,9 +123,15 @@
         <input type="text" class="input-file form-control" readonly>
     </div>
 
+    @if (Model.Thumbnail != null)
+    {
+        <img class="recipe-image" style="margin-bottom:10px;" src="data:image;base64,@System.Convert.ToBase64String(Model.Thumbnail)" />
+    }
+
+
     <div class="form-group">
         <div class="col-10">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary" />
         </div>
     </div>
 </div>

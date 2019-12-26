@@ -1,0 +1,63 @@
+@model SugarFreeHealthyDiet.Models.Recipe
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@using SugarFreeHealthyDiet.Extensions;
+
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+
+<div class="col-12">
+    <p class="pull-right">
+        @Html.ActionLink("Back to Recipes", "Index")
+        @if (User.IsInRole("Admin"))
+        {
+            @:| @Html.ActionLink("Edit", "Edit", new { id = Model.RecipeId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.RecipeId })
+        }
+    </p>
+</div>
+
+<div class="row" style="margin-bottom:10px;">
+    <div class="col-8 col-lg-offset-2">
+        @if (Model.Image != null)
+        {
+            <img class="recipe-image recipe-image-large" alt="@Model.Title" src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" />
+        }
+        else
+        {
+            <img class="recipe-image recipe-image-large" alt="@Model.Title" src="~/Content/Images/Placeholder.jpg" />
+        }
+    </div>
+</div>
+
+<div class="col-12">
+    @if (User.IsInRole("Admin"))
+    {
+        <p><span class="glyphicon @(Model.Active ? "glyphicon-ok-sign" : "glyphicon-minus-sign")" style="color:@(Model.Active ? "#258039" : "#a32b1a")"></span> @(Model.Active ? "Active" : "Inactive")</p>
+    }
+    <p><span class="glyphicon glyphicon-time"></span> Duration - @Html.DisplayFor(model => model.GetDuration())</p>
+    <p><span class="glyphicon glyphicon-cutlery"></span> Servings - @Html.DisplayFor(model => model.Servings)</p>
+    @if (Model.Vegetarian)
+    {
+        <p><span class="glyphicon glyphicon-leaf"></span> @Html.DisplayNameFor(model => model.Vegetarian)</p>
+    }
+    @if (Model.Vegan)
+    {
+        <p><span class="glyphicon glyphicon-grain"></span> @Html.DisplayNameFor(model => model.Vegan)</p>
+    }
+</div>
+
+<div class="col-12">
+    <p>@Html.PreserveNewLine(Model.Description)</p>
+</div>
+
+<div class="col-4">
+    <h3>Ingredients</h3>
+    <p>@Html.PreserveNewLine(Model.Ingredients)</p>
+</div>
+
+<div class="col-8">
+    <h3>Directions</h3>
+    <p>@Html.PreserveNewLine(Model.Directions)</p>
+</div>
