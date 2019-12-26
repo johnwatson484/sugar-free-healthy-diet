@@ -36,7 +36,7 @@
     {
         <p><span class="glyphicon @(Model.Active ? "glyphicon-ok-sign" : "glyphicon-minus-sign")" style="color:@(Model.Active ? "#258039" : "#a32b1a")"></span> @(Model.Active ? "Active" : "Inactive")</p>
     }
-    <p><span class="glyphicon glyphicon-time"></span> Duration - @Html.DisplayFor(model => model.GetDuration())</p>
+    <p><span class="glyphicon glyphicon-time"></span> Duration - @Model.GetDuration()</p>
     <p><span class="glyphicon glyphicon-cutlery"></span> Servings - @Html.DisplayFor(model => model.Servings)</p>
     @if (Model.Vegetarian)
     {

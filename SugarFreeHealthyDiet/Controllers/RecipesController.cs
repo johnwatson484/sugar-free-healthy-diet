@@ -11,6 +11,7 @@ using SugarFreeHealthyDiet.Data;
 using SugarFreeHealthyDiet.Models;
 using SugarFreeHealthyDiet.Common;
 using SugarFreeHealthyDiet.Services;
+using SugarFreeHealthyDiet.Extensions;
 using X.PagedList;
 
 namespace SugarFreeHealthyDiet.Controllers
@@ -37,17 +38,13 @@ namespace SugarFreeHealthyDiet.Controllers
             return View(dbContext.Recipes.Where(x => x.Active).OrderByDescending(x => x.Created).ToPagedList(page, pageSize));
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
-            return await GetRecipe(id);
-        }
-
-        [HttpGet("{id:alpha}")]
-        public IActionResult Details(string slug)
-        {
-            var id = slugService.GetIdFromSlug(slug);
-            return RedirectToAction("Details", new { id = id });
+            if(id.IsInteger())
+            {
+                return await GetRecipe(int.Parse(id));
+            }
+            return await GetRecipe(slugService.GetIdFromSlug(id));             
         }
 
         [Authorize(Roles = "Admin")]
