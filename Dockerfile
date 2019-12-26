@@ -1,6 +1,7 @@
 # BASE
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
 WORKDIR /app
+ENV ASPNETCORE_ENVIRONMENT=production
 
 # DEVELOPMENT
 FROM base AS development-env
