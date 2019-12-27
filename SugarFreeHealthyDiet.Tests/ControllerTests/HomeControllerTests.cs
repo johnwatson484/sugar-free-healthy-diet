@@ -25,5 +25,12 @@ namespace SugarFreeHealthyDiet.Tests
             Assert.AreEqual("Index", result.ActionName);
             Assert.AreEqual("Recipes", result.ControllerName);
         }
+
+        [Test]
+        public void Test_Contact_Returns_View()
+        {
+            var result = controller.Contact() as ViewResult;
+            Assert.IsNotNull(result);
+        }
     }
 }
