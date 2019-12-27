@@ -66,7 +66,7 @@ namespace SugarFreeHealthyDiet.Models
 
             if (Hours >= 1)
             {
-                sb.Append(Hours.ToPluralizableString("hour"));
+                sb.Append(string.Format("{0} ", Hours.ToPluralizableString("hour")));
             }
 
             if (Minutes >= 1)
