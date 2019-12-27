@@ -3,7 +3,7 @@
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [   
     {
       "name": ".NET Core Docker Attach",
       "type": "coreclr",
@@ -14,14 +14,14 @@
         "pipeArgs": [
           "exec",
           "-i",
-          "power-lines-data-service"
+          "sugar-free-healthy-diet"
         ],
         "debuggerPath": "/vsdbg/vsdbg",
         "pipeCwd": "${workspaceRoot}",
         "quoteArgs": false
       },
       "sourceFileMap": {
-        "/PowerLinesDataService": "${workspaceFolder}"
+        "/SugarFreeHealthyDiet": "${workspaceFolder}"
       }
     }
   ]
