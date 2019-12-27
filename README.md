@@ -75,3 +75,8 @@ The test container will automatically close when all tests have been completed. 
 docker-compose -f docker-compose.test.yaml -f docker-compose.development.test.yaml build
 docker-compose -f docker-compose.test.yaml -f docker-compose.development.test.yaml up
 ```
+
+## Code coverage
+Code coverage can be collected by changing the test container command to use [Coverlet MS Build integration](https://github.com/tonerdo/coverlet/blob/master/Documentation/MSBuildIntegration.md).
+
+`dotnet test /p:CollectCoverage=true /p:CoverletOutput='./TestResults/`
