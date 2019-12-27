@@ -61,16 +61,16 @@ else
                     <h4>@Html.ActionLink(recipe.Title, "Details", new { id = recipe.GetSlug() })</h4>
                     @if(User.IsInRole("Admin"))
                     {
-                    	<p><span class="glyphicon @(recipe.Active ? "glyphicon-ok-sign" : "glyphicon-minus-sign")" style="color:@(recipe.Active ? "#258039" : "#a32b1a")"></span> @(recipe.Active ? "Active" : "Inactive")</p>
+                    	<p><i class="@(recipe.Active ? "fas fa-check-circle" : "fas fa-times-circle")" style="color:@(recipe.Active ? "#258039" : "#a32b1a")"></i> @(recipe.Active ? "Active" : "Inactive")</p>
                     }
                     <p>@Html.PreserveNewLine(recipe.ShortDescription)</p>
                     @if (recipe.Vegetarian)
                     {
-                        <p><span class="glyphicon glyphicon-leaf"></span> @Html.DisplayNameFor(model => recipe.Vegetarian)</p>
+                        <p><i class="fas fa-carrot"></i> @Html.DisplayNameFor(model => recipe.Vegetarian)</p>
                     }
                     @if (recipe.Vegan)
                     {
-                        <p><span class="glyphicon glyphicon-grain"></span> @Html.DisplayNameFor(model => recipe.Vegan)</p>
+                        <p><i class="fas fa-seedling"></i> @Html.DisplayNameFor(model => recipe.Vegan)</p>
                     }
                 </div>
             </div>
