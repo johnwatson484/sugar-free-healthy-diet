@@ -72,8 +72,40 @@ docker-compose -f docker-compose.test.yaml up
 The test container will automatically close when all tests have been completed.  There is also the option to run the test container using a file watch to aide local development.
 
 ```
-docker-compose -f docker-compose.test.yaml -f docker-compose.development.test.yaml build
-docker-compose -f docker-compose.test.yaml -f docker-compose.development.test.yaml up
+docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml build
+docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml up
+```
+
+The test image also contains a remote debugger which can be set to wait for debugger attachment.
+
+```
+docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml -f docker-compose.test.debug.yaml build
+docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml -f docker-compose.test.debug.yaml up
+```
+
+Debugging tests also requires a debug configuration such as the below example.
+
+```
+{
+  "name": ".NET Core Docker Attach Tests",
+  "type": "coreclr",
+  "request": "attach",
+  "processId": "${command:pickRemoteProcess}",
+  "pipeTransport": {
+    "pipeProgram": "docker",
+    "pipeArgs": [
+      "exec",
+      "-i",
+      "sugar-free-healthy-diet-test"
+    ],
+    "debuggerPath": "/vsdbg/vsdbg",
+    "pipeCwd": "${workspaceRoot}",
+    "quoteArgs": false
+  },
+  "sourceFileMap": {
+    "/SugarFreeHealthyDiet.Tests": "${workspaceFolder}"
+  }
+}
 ```
 
 ## Code coverage
