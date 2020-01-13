@@ -21,7 +21,7 @@
         "quoteArgs": false
       },
       "sourceFileMap": {
-        "/SugarFreeHealthyDiet": "${workspaceFolder}"
+        "/SugarFreeHealthyDiet": "${workspaceFolder}/SugarFreeHealthyDiet"
       }
     }
   ]
