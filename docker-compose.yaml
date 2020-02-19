@@ -7,6 +7,6 @@ services:
     image: sugar-free-healthy-diet
     container_name: sugar-free-healthy-diet
     ports:
-      - "8000:80"
+      - "5000:5000"
     environment:
       ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
