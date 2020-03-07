@@ -26,7 +26,7 @@ namespace SugarFreeHealthyDiet
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("SugarFreeHealthyDiet")));
             
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddRoleManager<RoleManager<IdentityRole>>()

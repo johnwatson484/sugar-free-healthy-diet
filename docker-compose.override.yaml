@@ -3,13 +3,16 @@ services:
   sugar-free-healthy-diet:
     build: 
       context: .
-      target: development-env
+      target: development
     depends_on: 
       - sugar-free-healthy-diet-postgres
     environment:
-      ConnectionStrings__DefaultConnection: "Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;User Id=postgres;Password=postgres;"
+      ConnectionStrings__SugarFreeHealthyDiet: "Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;User Id=postgres;Password=postgres;"
+    ports:
+      - "5000:5000"
     volumes:
-      - ./SugarFreeHealthyDiet:/SugarFreeHealthyDiet
+      - ./SugarFreeHealthyDiet:/home/dotnet/SugarFreeHealthyDiet
+      - ./SugarFreeHealthyDiet.Tests:/home/dotnet/SugarFreeHealthyDiet.Tests
     
 
   sugar-free-healthy-diet-postgres:
@@ -22,7 +25,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
 
 volumes:
   postgres_data: {}

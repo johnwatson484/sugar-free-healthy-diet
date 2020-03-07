@@ -1,7 +1,7 @@
 version: '3.7'
 services:
-  sugar-free-healthy-diet-test:
-    entrypoint: [ "dotnet", "watch", "test" ]
+  sugar-free-healthy-diet:
+    entrypoint: dotnet watch --project ./FFCDemoPaymentService.Tests test
     volumes:
-      - ./SugarFreeHealthyDiet.Tests:/SugarFreeHealthyDiet.Tests
-      - ./SugarFreeHealthyDiet:/SugarFreeHealthyDiet
+      - ./SugarFreeHealthyDiet.Tests:/home/dotnet/SugarFreeHealthyDiet.Tests
+      - ./SugarFreeHealthyDiet:/home/dotnet/SugarFreeHealthyDiet

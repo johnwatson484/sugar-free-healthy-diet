@@ -1,40 +1,45 @@
-# BASE
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS base
-WORKDIR /app
+# Development
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS development
+
+RUN apk update \
+  && apk --no-cache add curl procps unzip \
+  && wget -qO- https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l /vsdbg
+
+RUN addgroup -g 1000 dotnet \
+    && adduser -u 1000 -G dotnet -s /bin/sh -D dotnet
+
+USER dotnet
+WORKDIR /home/dotnet
+
+RUN mkdir -p /home/dotnet/SugarFreeHealthyDiet/ /home/dotnet/SugarFreeHealthyDiet.Tests/
+COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet.Tests/*.csproj ./SugarFreeHealthyDiet.Tests/
+RUN dotnet restore ./SugarFreeHealthyDiet.Tests/SugarFreeHealthyDiet.Tests.csproj
+COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet/*.csproj ./SugarFreeHealthyDiet/
+RUN dotnet restore ./SugarFreeHealthyDiet/SugarFreeHealthyDiet.csproj
+COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet.Tests/ ./SugarFreeHealthyDiet.Tests/
+COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet/ ./SugarFreeHealthyDiet/
+RUN dotnet publish ./SugarFreeHealthyDiet/ -c Release -o /home/dotnet/out
+
+ARG PORT=5000
+ENV PORT ${PORT}
+ENV ASPNETCORE_ENVIRONMENT=development
+EXPOSE ${PORT}
+# Override entrypoint using shell form so that environment variables are picked up
+ENTRYPOINT dotnet watch --project ./SugarFreeHealthyDiet run --urls "http://*:${PORT}"
+
+# Production
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS production
+
+RUN addgroup -g 1000 dotnet \
+    && adduser -u 1000 -G dotnet -s /bin/sh -D dotnet
+
+USER dotnet
+WORKDIR /home/dotnet
+
+COPY --from=development /home/dotnet/out/ ./
+ARG PORT=5000
+ENV ASPNETCORE_URLS http://*:${PORT}
 ENV ASPNETCORE_ENVIRONMENT=production
-
-# DEVELOPMENT
-FROM base AS development-env
-WORKDIR /SugarFreeHealthyDiet
-RUN apt-get update \
- && apt-get install -y --no-install-recommends unzip \
- && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
-COPY ./SugarFreeHealthyDiet/*.csproj ./
-RUN dotnet restore
-COPY ./SugarFreeHealthyDiet ./
-ENTRYPOINT [ "dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000" ]
-
-# TEST
-FROM development-env AS test-env
-WORKDIR /SugarFreeHealthyDiet.Tests
-COPY ./SugarFreeHealthyDiet.Tests/*.csproj ./
-RUN dotnet restore
-COPY ./SugarFreeHealthyDiet.Tests ./
-ENTRYPOINT [ "dotnet", "test" ]
-
-# PRODUCTION
-FROM base AS build-env
-COPY ./SugarFreeHealthyDiet/*.csproj ./
-RUN dotnet restore
-COPY ./SugarFreeHealthyDiet ./
-RUN dotnet publish -c Release -o out
-
-# RUNTIME
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS production-env
-WORKDIR /app
-COPY --from=build-env /app/out .
-RUN chown -R www-data:www-data /app
-USER www-data
-ENV ASPNETCORE_URLS=http://*:5000
-EXPOSE 5000
-ENTRYPOINT ["dotnet", "SugarFreeHealthyDiet.dll"]
+EXPOSE ${PORT}
+# Override entrypoint using shell form so that environment variables are picked up
+ENTRYPOINT dotnet SugarFreeHealthyDiet.dll

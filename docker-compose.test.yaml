@@ -1,9 +1,8 @@
 version: '3.7'
 services:
-  sugar-free-healthy-diet-test:
-    build: 
-      context: .
-      target: test-env
+  sugar-free-healthy-diet:
+    build:
+      target: development
     image: sugar-free-healthy-diet-test
     container_name: sugar-free-healthy-diet-test
-    
+    entrypoint: dotnet test ./SugarFreeHealthyDiet.Tests/SugarFreeHealthyDiet.Tests.csproj

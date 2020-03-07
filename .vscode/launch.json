@@ -11,37 +11,13 @@
       "processId": "${command:pickRemoteProcess}",
       "pipeTransport": {
         "pipeProgram": "docker",
-        "pipeArgs": [
-          "exec",
-          "-i",
-          "sugar-free-healthy-diet"
-        ],
+        "pipeArgs": ["exec", "-i", "sugar-free-healthy-diet"],
         "debuggerPath": "/vsdbg/vsdbg",
         "pipeCwd": "${workspaceRoot}",
         "quoteArgs": false
       },
       "sourceFileMap": {
-        "/SugarFreeHealthyDiet": "${workspaceFolder}/SugarFreeHealthyDiet"
-      }
-    },
-    {
-      "name": ".NET Core Docker Attach Tests",
-      "type": "coreclr",
-      "request": "attach",
-      "processId": "${command:pickRemoteProcess}",
-      "pipeTransport": {
-        "pipeProgram": "docker",
-        "pipeArgs": [
-          "exec",
-          "-i",
-          "sugar-free-healthy-diet-test"
-        ],
-        "debuggerPath": "/vsdbg/vsdbg",
-        "pipeCwd": "${workspaceRoot}",
-        "quoteArgs": false
-      },
-      "sourceFileMap": {
-        "/SugarFreeHealthyDiet.Tests": "${workspaceFolder}"
+        "/home/dotnet": "${workspaceFolder}"
       }
     }
   ]

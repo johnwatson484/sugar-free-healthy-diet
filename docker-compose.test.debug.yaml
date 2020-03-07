@@ -1,6 +1,0 @@
-version: '3.7'
-services:
-  sugar-free-healthy-diet-test:
-    environment: 
-      VSTEST_RUNNER_DEBUG: 1
-      VSTEST_HOST_DEBUG: 1
