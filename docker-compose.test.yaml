@@ -2,6 +2,7 @@ version: '3.7'
 services:
   sugar-free-healthy-diet:
     build:
+      context: .
       target: development
     image: sugar-free-healthy-diet-test
     container_name: sugar-free-healthy-diet-test
