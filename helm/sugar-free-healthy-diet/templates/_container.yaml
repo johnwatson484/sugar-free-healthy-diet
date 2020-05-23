@@ -1,0 +1,10 @@
+{{- define "sugar-free-healthy-diet.container" -}}
+name: {{ quote .Values.name }}
+envFrom:
+- configMapRef:
+    name: {{ .Values.name }}
+ports:
+- containerPort: {{ .Values.container.port }}
+  name: http
+  protocol: TCP
+{{- end -}}

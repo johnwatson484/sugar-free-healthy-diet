@@ -1,0 +1,8 @@
+{{- include "helm-library.cluster-ip-service" (list . "sugar-free-healthy-diet.cluster-ip-service") -}}
+{{- define "sugar-free-healthy-diet.cluster-ip-service" -}}
+{{- if .Values.ingress.host }}
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
+{{- end }}
+{{- end -}}

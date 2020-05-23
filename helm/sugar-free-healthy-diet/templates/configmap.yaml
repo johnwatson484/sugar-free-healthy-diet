@@ -1,0 +1,8 @@
+{{- include "helm-library.configmap" (list . "sugar-free-healthy-diet.configmap") -}}
+{{- define "sugar-free-healthy-diet.configmap" -}}
+data:
+  ConnectionStrings__SugarFreeHealthyDiet: {{ quote .Values.container.connectionString }}
+  COMPlus_EnableDiagnostics: {{ quote .Values.container.comPlusEnableDiagnostics }}
+  ASPNETCORE_ENVIRONMENT: {{ quote .Values.environment }}
+  ASPNETCORE_URLS: https://*:{{ .Values.container.port }}
+{{- end -}}
