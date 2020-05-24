@@ -57,7 +57,7 @@ steps:
   #     addPipelineData: false
 
   - script: |
-      cd $(Agent.BuildDirectory)/s/$(repo)
+      cd $(Agent.BuildDirectory)/s/$(repo)/$(helmChartPath)
       ls
       "sed -i -e 's/image: .*/image: $(containerRepository):$(version)/' $(Agent.BuildDirectory)/s/$(repo)/$(helmChartPath)/values.yaml"
     displayName: Update Helm values
