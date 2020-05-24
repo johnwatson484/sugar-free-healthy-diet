@@ -32,36 +32,34 @@ steps:
         $csprojVersion = ([xml](Get-Content '$(Agent.BuildDirectory)/s/$(repo)/$(project)/$(project).csproj')).Project.PropertyGroup.Version
         Write-Host "##vso[task.setvariable variable=version;]$csprojVersion"
 
-  - script: |
-      echo $(version)
+  - task: Docker@2
+    displayName: Build image
+    inputs:
+      containerRegistry: 'DockerHub'
+      repository: '$(containerRepository)'
+      command: 'build'
+      Dockerfile: '$(Agent.BuildDirectory)/s/$(repo)/Dockerfile'
+      tags: |
+        $(version)
+        latest
+      arguments: '--target production'
+      addPipelineData: false
 
-  # - task: Docker@2
-  #   displayName: Build image
-  #   inputs:
-  #     containerRegistry: 'DockerHub'
-  #     repository: '$(containerRepository)'
-  #     command: 'build'
-  #     Dockerfile: '$(Agent.BuildDirectory)/s/$(repo)/Dockerfile'
-  #     tags: |
-  #       $(version)
-  #       latest
-  #     addPipelineData: false
-
-  # - task: Docker@2
-  #   displayName: Push image
-  #   inputs:
-  #     containerRegistry: 'DockerHub'
-  #     repository: '$(containerRepository)'
-  #     command: 'push'
-  #     tags: |
-  #       $(version)
-  #       latest
-  #     addPipelineData: false
+  - task: Docker@2
+    displayName: Push image
+    inputs:
+      containerRegistry: 'DockerHub'
+      repository: '$(containerRepository)'
+      command: 'push'
+      tags: |
+        $(version)
+        latest
+      addPipelineData: false
   
-  # - task: HelmInstaller@1
-  #   displayName: Install Helm
-  #   inputs:
-  #     helmVersionToInstall: 'latest'
+  - task: HelmInstaller@1
+    displayName: Install Helm
+    inputs:
+      helmVersionToInstall: 'latest'
 
   - checkout: helmRepo
     displayName: Clone Helm repository
