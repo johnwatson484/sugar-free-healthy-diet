@@ -20,10 +20,10 @@ COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet.Tests/ ./SugarFreeHealthyDiet.
 COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet/ ./SugarFreeHealthyDiet/
 RUN dotnet publish ./SugarFreeHealthyDiet/ -c Release -o /home/dotnet/out
 
-ARG PORT=5001
+ARG PORT=5000
 ENV PORT ${PORT}
 ENV ASPNETCORE_ENVIRONMENT development
-ENV ASPNETCORE_URLS http://*:5000;https://*:5001
+ENV ASPNETCORE_URLS http://*:5000
 EXPOSE ${PORT}
 # Override entrypoint using shell form so that environment variables are picked up
 ENTRYPOINT dotnet watch --project ./SugarFreeHealthyDiet run
@@ -38,8 +38,8 @@ USER dotnet
 WORKDIR /home/dotnet
 
 COPY --from=development /home/dotnet/out/ ./
-ARG PORT=5001
-ENV ASPNETCORE_URLS http://*:5000;https://*:5001
+ARG PORT=5000
+ENV ASPNETCORE_URLS http://*:5000
 ENV ASPNETCORE_ENVIRONMENT production
 EXPOSE ${PORT}
 # Override entrypoint using shell form so that environment variables are picked up

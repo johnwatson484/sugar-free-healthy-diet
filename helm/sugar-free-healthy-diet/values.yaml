@@ -1,6 +1,6 @@
 environment: development
 name: sugar-free-healthy-diet
-image: sugar-free-healthy-diet:1.0.0
+image: sugar-free-healthy-diet
 
 service:
   port: 80
@@ -29,7 +29,6 @@ ingress:
 
 deployment:
   restartPolicy: Always
-  priorityClassName: low
   replicas: 1
   minReadySeconds: 5
   redeployOnChange: update this field to force a change
