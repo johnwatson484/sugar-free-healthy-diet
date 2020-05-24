@@ -32,6 +32,9 @@ steps:
         $csprojVersion = [xml](Get-Content '$(Agent.BuildDirectory)/s/$(repo)/$(project)/$(project).csproj').version
         Write-Host "##vso[task.setvariable variable=version;]$csprojVersion"
 
+  - script: |
+      echo $(version)
+
   # - task: Docker@2
   #   displayName: Build image
   #   inputs:
