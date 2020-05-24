@@ -55,6 +55,10 @@ steps:
         $(version)
         latest
       addPipelineData: false
+
+  - script: |
+      "sed -i -e 's/image: .*/image: $(containerRepository):$(version)/' $(Agent.BuildDirectory)/s/$(repo)/$(helmChartPath)/values.yaml"
+    displayName: Update Helm values
   
   - task: HelmInstaller@1
     displayName: Install Helm
