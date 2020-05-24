@@ -58,7 +58,6 @@ steps:
 
   - script: |
       sed -i -e 's/image: .*/image: johnwatson484\/$(repo):$(version)/' $(Agent.BuildDirectory)/s/$(repo)/$(helmChartPath)/values.yaml
-      cat $(Agent.BuildDirectory)/s/$(repo)/$(helmChartPath)/values.yaml
     displayName: Update Helm values
   
   - task: HelmInstaller@1
