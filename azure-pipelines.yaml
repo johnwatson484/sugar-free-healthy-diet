@@ -29,8 +29,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        $csproj = [xml](Get-Content '$(Agent.BuildDirectory)/s/$(repo)/$(project)/$(project).csproj')
-        Write-Host "##vso[task.setvariable variable=version;]$csproj.Project.PropertyGroup.Version"
+        $csprojVersion = ([xml](Get-Content '$(Agent.BuildDirectory)/s/$(repo)/$(project)/$(project).csproj')).Project.PropertyGroup.Version
+        Write-Host "##vso[task.setvariable variable=version;]$csprojVersion"
 
   - script: |
       echo $(version)
