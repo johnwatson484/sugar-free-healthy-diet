@@ -1,13 +1,13 @@
 {{- include "helm-library.ingress" (list . "sugar-free-healthy-diet.ingress") -}}
 {{- define "sugar-free-healthy-diet.ingress" -}}
 {{- if .Values.ingress.host }}
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
-spec:
-  tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Values.name }}-tls
+# metadata:
+#   annotations:
+#     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
+# spec:
+#   tls:
+#   - hosts:
+#     - {{ .Values.ingress.host }}
+#     secretName: {{ .Values.name }}-tls
 {{- end }}
 {{- end -}}
