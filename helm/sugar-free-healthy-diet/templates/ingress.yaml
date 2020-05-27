@@ -1,8 +1,9 @@
 {{- include "helm-library.ingress" (list . "sugar-free-healthy-diet.ingress") -}}
 {{- define "sugar-free-healthy-diet.ingress" -}}
 {{- if .Values.ingress.host }}
-# metadata:
-#   annotations:
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 #     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
 # spec:
 #   tls:
