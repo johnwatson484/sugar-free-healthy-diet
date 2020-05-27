@@ -3,12 +3,11 @@
 {{- if .Values.ingress.host }}
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
-# spec:
-#   tls:
-#   - hosts:
-#     - {{ .Values.ingress.host }}
-#     secretName: {{ .Values.name }}-tls
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.name }}-tls
 {{- end }}
 {{- end -}}
