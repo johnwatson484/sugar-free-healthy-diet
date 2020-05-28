@@ -8,7 +8,7 @@ metadata:
     {{- if .Values.ingress.host }}
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
     kubernetes.io/ingress.class: {{ .Values.ingress.class | quote }}
-    nginx.ingress.kubernetes.io/proxy-body-size: 0
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
     {{- end }}
 spec:
   tls:
