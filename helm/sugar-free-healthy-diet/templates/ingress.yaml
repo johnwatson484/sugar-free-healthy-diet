@@ -9,6 +9,10 @@ metadata:
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
     kubernetes.io/ingress.class: {{ .Values.ingress.class | quote }}
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
     {{- end }}
 spec:
   tls:
