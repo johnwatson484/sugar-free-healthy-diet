@@ -1,13 +1,38 @@
-{{- include "helm-library.ingress" (list . "sugar-free-healthy-diet.ingress") -}}
-{{- define "sugar-free-healthy-diet.ingress" -}}
-{{- if .Values.ingress.host }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata:
+  name: {{ .Values.name | quote }}
+  labels:
+    {{- include "helm-library.labels" . | nindent 4 }}
   annotations:
+    {{- if .Values.ingress.host }}
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.class | quote }}
+    {{- end }}
 spec:
   tls:
   - hosts:
     - {{ .Values.ingress.host }}
+    - www.{{ .Values.ingress.host }}
     secretName: {{ .Values.name }}-tls
+  rules:
+{{- if .Values.ingress.host }}
+  - host: {{ .Values.ingress.host }}
+    http:
+{{ else }}
+  - http:
 {{- end }}
-{{- end -}}
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.name | quote }}
+          servicePort: {{ .Values.service.port }}
+{{- if .Values.ingress.host }}
+  - host: www.{{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Values.name | quote }}
+          servicePort: {{ .Values.service.port }}
+{{- end }}
