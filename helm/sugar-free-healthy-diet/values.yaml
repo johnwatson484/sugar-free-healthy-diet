@@ -9,8 +9,8 @@ container:
   imagePullPolicy: IfNotPresent
   requestMemory: 60Mi
   requestCpu: 60m
-  limitMemory: 80Mi
-  limitCpu: 80m
+  limitMemory: 180Mi
+  limitCpu: 180m
   readOnlyRootFilesystem: false
   allowPrivilegeEscalation: false
   port: 5000
