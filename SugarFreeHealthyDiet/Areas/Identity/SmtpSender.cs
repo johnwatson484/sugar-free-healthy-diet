@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace SugarFreeHealthyDiet.Areas.Identity
 {
@@ -26,7 +27,7 @@ namespace SugarFreeHealthyDiet.Areas.Identity
             mail.Subject = string.Format("SugarFreeHealthyDiet.com - {0}", subject);
             mail.Body = message;
             mail.To.Add(email);
-
+            Console.WriteLine("{0} {1} {2} {3}", smtpConfiguration.Server, smtpConfiguration.Port, smtpConfiguration.Username, smtpConfiguration.Password);
             smtpClient.Send(mail);
 
             return Task.FromResult(0);
