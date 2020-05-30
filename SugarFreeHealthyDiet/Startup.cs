@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SugarFreeHealthyDiet.Services;
+using SugarFreeHealthyDiet.Areas.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace SugarFreeHealthyDiet
 {
@@ -33,6 +35,12 @@ namespace SugarFreeHealthyDiet
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            var emailConfig = Configuration
+                .GetSection("SmtpConfiguration")
+                .Get<SmtpConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddTransient<IEmailSender, SmtpSender>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
