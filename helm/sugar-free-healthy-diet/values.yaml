@@ -22,6 +22,12 @@ postgresService:
   postgresExternalName: host.docker.internal
   postgresPort: 5432
 
+smtp:
+  server: smtp.email.com
+  port: 465
+  username: test@email.com
+  password: password
+
 ingress:
   class: nginx
   host:

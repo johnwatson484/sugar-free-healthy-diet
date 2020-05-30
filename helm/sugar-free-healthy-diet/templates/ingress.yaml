@@ -15,11 +15,13 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
     {{- end }}
 spec:
+  {{- if .Values.ingress.host }}
   tls:
   - hosts:
     - {{ .Values.ingress.host }}
     - www.{{ .Values.ingress.host }}
     secretName: {{ .Values.name }}-tls
+  {{- end }}
   rules:
 {{- if .Values.ingress.host }}
   - host: {{ .Values.ingress.host }}
