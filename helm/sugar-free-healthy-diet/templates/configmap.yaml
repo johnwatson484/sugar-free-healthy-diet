@@ -3,7 +3,7 @@
 data:
   ConnectionStrings__SugarFreeHealthyDiet: {{ quote .Values.container.connectionString }}
   SmtpConfiguration__Server: {{ quote .Values.smtp.server }}
-  SmtpConfiguration__Port: {{ .Values.smtp.port }}
+  SmtpConfiguration__Port: {{ quote .Values.smtp.port }}
   SmtpConfiguration__Username: {{ quote .Values.smtp.username }}
   SmtpConfiguration__Password: {{ quote .Values.smtp.password }}
   COMPlus_EnableDiagnostics: {{ quote .Values.container.comPlusEnableDiagnostics }}
