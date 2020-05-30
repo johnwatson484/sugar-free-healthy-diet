@@ -24,7 +24,7 @@ postgresService:
 
 smtp:
   server: smtp.email.com
-  port: 465
+  port: 587
   username: test@email.com
   password: password
 
