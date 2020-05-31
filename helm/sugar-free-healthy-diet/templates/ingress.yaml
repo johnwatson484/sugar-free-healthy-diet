@@ -1,45 +1,13 @@
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+{{- include "helm-library.ingress" (list . "sugar-free-healthy-diet.ingress") -}}
+{{- define "sugar-free-healthy-diet.ingress" -}}
 metadata:
-  name: {{ .Values.name | quote }}
-  labels:
-    {{- include "helm-library.labels" . | nindent 4 }}
   annotations:
-    {{- if .Values.ingress.host }}
+  {{- if .Values.ingress.host }}
     cert-manager.io/cluster-issuer: {{ .Values.ingress.certIssuer }}
-    kubernetes.io/ingress.class: {{ .Values.ingress.class | quote }}
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "affinity"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
-    {{- end }}
-spec:
-  {{- if .Values.ingress.host }}
-  tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    - www.{{ .Values.ingress.host }}
-    secretName: {{ .Values.name }}-tls
   {{- end }}
-  rules:
-{{- if .Values.ingress.host }}
-  - host: {{ .Values.ingress.host }}
-    http:
-{{ else }}
-  - http:
-{{- end }}
-      paths:
-      - path: /
-        backend:
-          serviceName: {{ .Values.name | quote }}
-          servicePort: {{ .Values.service.port }}
-{{- if .Values.ingress.host }}
-  - host: www.{{ .Values.ingress.host }}
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: {{ .Values.name | quote }}
-          servicePort: {{ .Values.service.port }}
-{{- end }}
+{{- end -}}
