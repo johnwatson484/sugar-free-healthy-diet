@@ -17,6 +17,7 @@ RUN dotnet restore ./SugarFreeHealthyDiet.Tests/SugarFreeHealthyDiet.Tests.cspro
 COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet/*.csproj ./SugarFreeHealthyDiet/
 RUN dotnet restore ./SugarFreeHealthyDiet/SugarFreeHealthyDiet.csproj
 COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet.Tests/ ./SugarFreeHealthyDiet.Tests/
+RUN true
 COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet/ ./SugarFreeHealthyDiet/
 RUN dotnet publish ./SugarFreeHealthyDiet/ -c Release -o /home/dotnet/out
 
