@@ -43,13 +43,6 @@ docker-compose -f docker-compose.test.yaml build
 docker-compose -f docker-compose.test.yaml up
 ```
 
-The test container will automatically close when all tests have been completed.  There is also the option to run the test container using a file watch to aide local development.
-
-```
-docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml build
-docker-compose -f docker-compose.test.yaml -f docker-compose.test.watch.yaml up
-```
-
 ## Code coverage
 Code coverage can be collected by changing the test container command to use [Coverlet MS Build integration](https://github.com/tonerdo/coverlet/blob/master/Documentation/MSBuildIntegration.md).
 
