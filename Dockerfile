@@ -11,6 +11,7 @@ RUN addgroup -g 1000 dotnet \
 USER dotnet
 WORKDIR /home/dotnet
 
+COPY --chown=dotnet:dotnet ./Directory.Build.props ./Directory.Build.props
 RUN mkdir -p /home/dotnet/SugarFreeHealthyDiet/ /home/dotnet/SugarFreeHealthyDiet.Tests/
 COPY --chown=dotnet:dotnet ./SugarFreeHealthyDiet.Tests/*.csproj ./SugarFreeHealthyDiet.Tests/
 RUN dotnet restore ./SugarFreeHealthyDiet.Tests/SugarFreeHealthyDiet.Tests.csproj
