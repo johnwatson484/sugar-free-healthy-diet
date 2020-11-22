@@ -1,6 +1,5 @@
 trigger:
   - master
-  - main
 
 pr: none
 
@@ -15,7 +14,5 @@ extends:
   template: build.yaml@templates
   parameters:
     repo: sugar-free-healthy-diet
-    containerRepository: johnwatson484/sugar-free-healthy-diet
-    helmChartPath: helm/sugar-free-healthy-diet
     project: SugarFreeHealthyDiet
     framework: net
