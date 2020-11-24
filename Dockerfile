@@ -1,5 +1,5 @@
 # Development
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS development
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS development
 
 RUN apk update \
   && apk --no-cache add curl procps unzip \
@@ -31,7 +31,7 @@ EXPOSE ${PORT}
 ENTRYPOINT dotnet watch --project ./SugarFreeHealthyDiet run
 
 # Production
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS production
+FROM mcr.microsoft.com/dotnet/runtime:5.0-alpine AS production
 
 RUN addgroup -g 1000 dotnet \
     && adduser -u 1000 -G dotnet -s /bin/sh -D dotnet
