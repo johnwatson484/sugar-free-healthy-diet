@@ -44,6 +44,7 @@ else
         </div>
         <div class="btn-group" role="group" aria-label="shopping-list">
             <input type="button" id="generate-shopping-list" value="Generate shopping list" class="btn btn-success" style="display:none;" />
+            <input type="button" id="download-shopping-list" value="Download shopping list" class="btn btn-success" style="display:none;" />
             <input type="button" id="cancel-shopping-list" value="Cancel" class="btn btn-danger" style="display:none;" />
         </div>
     </div>
@@ -73,6 +74,14 @@ else
                     {
                     	<p><i class="@(recipe.Active ? "fas fa-check-circle" : "fas fa-times-circle")" style="color:@(recipe.Active ? "#258039" : "#a32b1a")"></i> @(recipe.Active ? "Active" : "Inactive")</p>
                     }
+                    <div class="shopping-list-check" style="display:none;">
+                        <div class="form-check">
+                            <input class="form-check-input shopping-list-item" type="checkbox" value="" id="shopping-list-item-@recipe.RecipeId" data-id="@recipe.RecipeId">
+                            <label class="form-check-label" for="shopping-list-item-@recipe.RecipeId">
+                                Include in shopping list
+                            </label>
+                        </div>
+                    </div>
                     <p>@Html.PreserveNewLine(recipe.ShortDescription)</p>
                     @if (recipe.Vegetarian)
                     {
@@ -82,14 +91,6 @@ else
                     {
                         <p><i class="fas fa-seedling"></i> @Html.DisplayNameFor(model => recipe.Vegan)</p>
                     }
-                    <div class="shopping-list-check" style="display:none;">
-                        <div class="form-check">
-                            <input class="form-check-input shopping-list-item" type="checkbox" value="" id="shopping-list-item-@recipe.RecipeId" data-id="@recipe.RecipeId">
-                            <label class="form-check-label" for="shopping-list-item-@recipe.RecipeId">
-                                Include in shopping list
-                            </label>
-                        </div>
-                    </div>
                 </div>
             </div>
         }

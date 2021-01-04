@@ -1,18 +1,12 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using SugarFreeHealthyDiet.Data;
 using SugarFreeHealthyDiet.Models;
-using SugarFreeHealthyDiet.Common;
-using SugarFreeHealthyDiet.Services;
-using SugarFreeHealthyDiet.Extensions;
-using X.PagedList;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SugarFreeHealthyDiet.Controllers
 {
@@ -30,6 +24,23 @@ namespace SugarFreeHealthyDiet.Controllers
         public IActionResult Index(int[] recipeIds)
         {
             return View(dbContext.Recipes.Where(x => recipeIds.Contains(x.RecipeId)).ToList());
+        }
+
+        public FileResult Download(int[] recipeIds)
+        {
+            var recipes = dbContext.Recipes.Where(x => recipeIds.Contains(x.RecipeId)).ToList();
+
+            StringWriter sw = new StringWriter();
+
+            foreach (var recipe in recipes)
+            {
+                sw.WriteLine("# {0}",recipe.Title);
+                sw.WriteLine();
+                sw.WriteLine(recipe.Ingredients);
+                sw.WriteLine();
+            }
+
+            return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), System.Net.Mime.MediaTypeNames.Application.Octet, "shopping-list.txt");
         }
 
         protected override void Dispose(bool disposing)
