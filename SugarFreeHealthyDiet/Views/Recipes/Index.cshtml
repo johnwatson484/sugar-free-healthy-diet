@@ -27,7 +27,7 @@
 {
     <p>
         @Html.ActionLink("Add new recipe", "Create")
-    </p>
+    </p>    
 }
 
 @if (Model == null || !Model.Any())
@@ -37,6 +37,16 @@
 else
 {
     int i = 0;
+
+    <div class="form-group">
+        <div class="col-10">
+            <input type="button" id="create-shopping-list" value="Create shopping list" class="btn btn-primary" />
+        </div>
+        <div class="btn-group" role="group" aria-label="shopping-list">
+            <input type="button" id="generate-shopping-list" value="Generate shopping list" class="btn btn-success" style="display:none;" />
+            <input type="button" id="cancel-shopping-list" value="Cancel" class="btn btn-danger" style="display:none;" />
+        </div>
+    </div>
 
     <div class="row">
         @foreach (var recipe in Model)
@@ -72,6 +82,14 @@ else
                     {
                         <p><i class="fas fa-seedling"></i> @Html.DisplayNameFor(model => recipe.Vegan)</p>
                     }
+                    <div class="shopping-list-check" style="display:none;">
+                        <div class="form-check">
+                            <input class="form-check-input shopping-list-item" type="checkbox" value="" id="shopping-list-item-@recipe.RecipeId" data-id="@recipe.RecipeId">
+                            <label class="form-check-label" for="shopping-list-item-@recipe.RecipeId">
+                                Include in shopping list
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
@@ -82,4 +100,8 @@ else
         @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
         @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     }
+}
+
+@section scripts {
+    <script src="~/js/shopping-list.js"></script>
 }

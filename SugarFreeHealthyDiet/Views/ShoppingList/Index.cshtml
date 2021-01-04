@@ -1,0 +1,23 @@
+@model IEnumerable<SugarFreeHealthyDiet.Models.Recipe>
+
+@{
+  	ViewData["Title"] = "Shopping List";
+}
+
+@using SugarFreeHealthyDiet.Extensions
+
+<h2 class="no-mobile">My Shopping List</h2>
+
+@if (Model == null || !Model.Any())
+{
+  <p>No shopping list provided</p>
+}
+else
+{
+  @foreach (var recipe in Model)
+  {
+    <h3>@Html.DisplayFor(model => recipe.Title)</h3>
+
+    <p>@Html.PreserveNewLine(recipe.Ingredients)</p>
+  }
+}
