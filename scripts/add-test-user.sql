@@ -1,0 +1,3 @@
+INSERT INTO "AspNetUsers" ("Id","UserName","NormalizedUserName","Email","NormalizedEmail","EmailConfirmed","PasswordHash","SecurityStamp","ConcurrencyStamp","PhoneNumber","PhoneNumberConfirmed","TwoFactorEnabled","LockoutEnd","LockoutEnabled","AccessFailedCount") 
+  VALUES ('c88d81c6-0287-4ef4-be15-1af468a8df82','test@test.com','TEST@TEST.COM','test@test.com','TEST@TEST.COM',True,'AQAAAAEAACcQAAAAECAuQQ4FJBHHBK6q7wRDNPCWopBi3pXd3jutA0e46ttqCqnDp7IZUIfi9ldxLsaSbw==','KN2ZXFIZ2XWAD5WKUDA7J4X6DRNR7O4U,253e75dc-9905-4bca-82e2-512ed32d8df3',NULL,False,False,NULL,True,0); -- password: TestTest1!
+INSERT INTO "AspNetUserRoles" ("UserId", "RoleId") VALUES ('c88d81c6-0287-4ef4-be15-1af468a8df82', 1);
