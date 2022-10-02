@@ -59,6 +59,7 @@ else
 
             <div class="col-md-4">
                 <div class="crop col-12">
+                    <a href="/Recipes/Details?id=@recipe.GetSlug()">
                     @if (recipe.Thumbnail != null)
                     {
                         <img class="recipe-image" alt="@recipe.Title" src="data:image;base64,@System.Convert.ToBase64String(recipe.Thumbnail)" />
@@ -67,6 +68,7 @@ else
                     {
                         <img class="recipe-image" alt="@recipe.Title" src="~/images/placeholder.jpg" />
                     }
+                    </a>
                 </div>
                 <div class="col-12">
                     <h4>@Html.ActionLink(recipe.Title, "Details", new { id = recipe.GetSlug() })</h4>
