@@ -1,26 +1,15 @@
-environment: development
+environment: production
 name: sugar-free-healthy-diet
 image: sugar-free-healthy-diet
 
-service:
-  port: 80
-
 container:
-  imagePullPolicy: IfNotPresent
   requestMemory: 60Mi
   requestCpu: 60m
   limitMemory: 250Mi
   limitCpu: 250m
-  readOnlyRootFilesystem: false
-  allowPrivilegeEscalation: false
   port: 5000
   comPlusEnableDiagnostics: 0
   connectionString: "User Id=postgres;Password=postgres;Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;"
-
-postgresService:
-  postgresHost: sugar-free-healthy-diet-postgres
-  postgresExternalName: host.docker.internal
-  postgresPort: 5432
 
 smtp:
   server: smtp.email.com
@@ -28,16 +17,6 @@ smtp:
   username: test@email.com
   password: password
 
-ingress:
-  class: nginx
-  host:
-  certIssuer: letsencrypt
+ingress: {}
 
-deployment:
-  restartPolicy: Always
-  replicas: 1
-  minReadySeconds: 5
-  redeployOnChange: update this field to force a change
-  imagePullSecret:
-  runAsNonRoot: true
-  runAsUser: 1000
+deployment: {}

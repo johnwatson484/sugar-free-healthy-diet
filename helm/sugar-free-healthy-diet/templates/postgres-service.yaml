@@ -1,5 +1,0 @@
-{{- if .Values.postgresService.postgresExternalName }}
-{{- include "helm-library.postgres-service" (list . "sugar-free-healthy-diet.postgres-service") -}}
-{{- end }}
-{{- define "sugar-free-healthy-diet.postgres-service" -}}
-{{- end -}}

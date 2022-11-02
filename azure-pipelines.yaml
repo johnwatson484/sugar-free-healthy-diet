@@ -9,10 +9,15 @@ resources:
     type: github
     endpoint: John D Watson
     name: johnwatson484/azure-devops-templates
+    ref: refs/tags/1
+
 
 extends:
   template: build.yaml@templates
   parameters:
-    repo: sugar-free-healthy-diet
+    name: sugar-free-healthy-diet
     project: SugarFreeHealthyDiet
     framework: net
+    deploy: true
+    namespace: power-lines
+    hasSecureHelmValuesFile: true
