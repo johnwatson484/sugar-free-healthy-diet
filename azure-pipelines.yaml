@@ -19,5 +19,5 @@ extends:
     project: SugarFreeHealthyDiet
     framework: net
     deploy: true
-    namespace: power-lines
+    namespace: sugar-free-healthy-diet
     hasSecureHelmValuesFile: true
