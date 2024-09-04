@@ -1,11 +1,8 @@
 {{- include "helm-library.configmap" (list . "sugar-free-healthy-diet.configmap") -}}
 {{- define "sugar-free-healthy-diet.configmap" -}}
 data:
-  ConnectionStrings__SugarFreeHealthyDiet: {{ quote .Values.container.connectionString }}
   SmtpConfiguration__Server: {{ quote .Values.smtp.server }}
   SmtpConfiguration__Port: {{ quote .Values.smtp.port }}
-  SmtpConfiguration__Username: {{ quote .Values.smtp.username }}
-  SmtpConfiguration__Password: {{ quote .Values.smtp.password }}
   COMPlus_EnableDiagnostics: {{ quote .Values.container.comPlusEnableDiagnostics }}
   ASPNETCORE_ENVIRONMENT: {{ quote .Values.environment }}
   ASPNETCORE_URLS: http://*:{{ .Values.container.port }}

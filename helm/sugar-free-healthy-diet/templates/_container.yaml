@@ -3,6 +3,8 @@ name: {{ quote .Values.name }}
 envFrom:
 - configMapRef:
     name: {{ .Values.name }}
+- secretRef:
+    name: {{ .Values.name }}
 ports:
 - containerPort: {{ .Values.container.port }}
   name: http

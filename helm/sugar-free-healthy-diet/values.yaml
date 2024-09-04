@@ -9,14 +9,15 @@ container:
   limitCpu: 250m
   port: 5000
   comPlusEnableDiagnostics: 0
-  connectionString: "User Id=postgres;Password=postgres;Server=sugar-free-healthy-diet-postgres;Port=5432;Database=sugar_free_healthy_diet;"
 
 smtp:
-  server: smtp.email.com
+  server: smtp.zoho.com
   port: 587
-  username: test@email.com
-  password: password
 
-ingress: {}
+ingress:
+  host: sugar-free-healthy-diet.com
 
 deployment: {}
+
+secret:
+  secretsPath: /sugar-free-healthy-diet
