@@ -1,8 +1,8 @@
 environment: production
 name: sugar-free-healthy-diet
-image: sugar-free-healthy-diet
 
 container:
+  image: sugar-free-healthy-diet
   requestMemory: 60Mi
   requestCpu: 60m
   limitMemory: 250Mi
